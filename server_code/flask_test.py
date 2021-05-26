@@ -3,7 +3,7 @@ from flask_restful import Api, Resource
 from utils.DataBase import db, createDB
 from utils.SetUP import SETUP
 import os
-from utils.test import akhilesh_get
+from utils.test import Akhilesh_get
 
 # set up the directory
 SETUP()
@@ -20,7 +20,7 @@ if not os.path.exists('DataBase/ServerData.db'):
         print('[INFO] "ServerData.db" was created inside directory "DataBase"')
 
 
-api.add_resource(akhilesh_get, "/")
+api.add_resource(Akhilesh_get, "/")
 
 
 if __name__ == "__main__":
