@@ -3,7 +3,9 @@ import cv2
 import numpy as np
 import tensorflow as tf
 import time
-from utils.PlaySound import Play_temperature, Play_Nomask
+from utils.PlaySound import Play_temperature, Play_Nomask, Play_thank_you
+from utils.Arduino_serialCom import Temperature
+import time
 
 #--------------- FLAGS --------------------------
 F_DISPLAY_DETECTION = True # To display the detections onoutput img when runnuing
@@ -142,18 +144,17 @@ while True:
         # other loop can be weitten
 
         # here we have used a simple input to trigger the ouyput
-        print('Flag is set to True for Mask detected')
-        print('\tPress 1 --> to restart the mask detection and data will be sent to server')
-        print('\tPress 0 --> to restart the mask detection with a message that something is wrong')
-        t_data = int(input())
-        if t_data == 1:
-            print('Server implimentation has not been done YET')
-            F_MASK_DETECTED = False
-        elif t_data == 0:
-            print('Script for error will be written')
-            F_MASK_DETECTED = False
-        else:
-            print('Wah bete Wah \nTu pakka Engineer hai\n 1 ya 0 press karna hai')
+
+        #-------------------- To Do -----------------------
+        # Get the sensor data from the arduino via serial communication
+        #--------------------------------------------------
+
+        temp = Temperature()
+        print("Your body temperature is ",temp)
+        if F_PLAY_AUDIO_FEEDBACK:
+            Play_thank_you()
+        F_MASK_DETECTED = False
+        time.sleep(1)
 
 cv2.destroyAllWindows()
 

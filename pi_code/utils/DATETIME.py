@@ -1,3 +1,5 @@
+# This program returns the current date and time
+
 import datetime
 
 def GetDateTime():
