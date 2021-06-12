@@ -1,9 +1,10 @@
-import pip
+from pip._internal import main
 
 packages = ['Flask==2.0.0',
-		    'Flask-RESTful==0.3.9',
-		    'Flask-SQLAlchemy==2.5.1'
+		    'Flask_RESTful==0.3.9',
+		    'Flask_SQLAlchemy==2.5.1'
 		   ]
 
 for package in packages:
-	pip.main(['install'], package)
+    main(['install', package])
+     
