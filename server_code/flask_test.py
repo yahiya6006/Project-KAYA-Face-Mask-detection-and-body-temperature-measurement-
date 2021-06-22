@@ -1,9 +1,21 @@
-from flask import Flask
-from flask_restful import Api
+from pip._internal import main
+
+try:
+	from flask import Flask
+except:
+	main(['install', "Flask==2.0.0"])
+	from flask import Flask
+
+try:	
+	from flask_restful import Api
+except:
+	main(['install', "Flask_RESTful==0.3.9"])
+	from flask_restful import Api
+
 from utils.DataBase import db, createDB
 from utils.SetUP import SETUP
 import os
-from utils.REST_Methods import Analytics, AddData
+from utils.REST_Methods import Analytics, AddData, test
 
 # set up the directory
 SETUP()
@@ -22,6 +34,7 @@ if not os.path.exists('DataBase/ServerData.db'):
 
 api.add_resource(Analytics, "/view/All-database")
 api.add_resource(AddData, "/addData")
+api.add_resource(test, "/test/<string:date>")
 
 if __name__ == "__main__":
     app.run(debug=True)

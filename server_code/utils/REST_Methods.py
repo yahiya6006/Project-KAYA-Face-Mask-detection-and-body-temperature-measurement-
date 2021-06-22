@@ -1,13 +1,20 @@
 from flask_restful import Api, Resource, fields, marshal_with, reqparse
-from utils.DataBase import db, Get_all_data_from_DB, Add_data_DB
-from flask import request, jsonify
-
+from utils.DataBase import db, Get_all_data_from_DB, Add_data_DB, Test
+from flask import request, jsonify, make_response
 #-- These are the fields that our database recquires
 Resource_fields = {
 	'id': fields.Integer,
 	'time': fields.String,
 	'date': fields.String,
-	'temp': fields.Float
+	'temp': fields.Float,
+	'message': fields.String
+}
+
+Resource_fields1 = { "data":{
+	'id': fields.Integer,
+	'time': fields.String,
+	'date': fields.String,
+	'temp': fields.Float }
 }
 
 #-- We are checking if user has sent or provided all the recquired fields
@@ -29,3 +36,13 @@ class AddData(Resource):
 		args = AddData_post_args.parse_args()
 		Add_data_DB(args['time'], args['date'], args['temp'])
 		return args
+
+class test(Resource):
+	@marshal_with(Resource_fields1)
+	def get(self,date):
+		#--- input sent is of the form 26-06-2021 which is converted to 26/06/2021
+		date = date.split("-")    # Output - ['13', '06', '2021']
+		date = date[0]+'/'+date[1]+'/'+date[2]  # output 13/06/2021
+		x = Test(date)
+		#print(x[1].get("id"))
+		return x
